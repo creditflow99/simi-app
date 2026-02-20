@@ -1,0 +1,1576 @@
+
+
+<html lang="es">
+
+<head>
+    <title data-insuit-uuid="7269e6c8-85e4-4c30-b3a4-81df30f15826">SIMIT | SISTEMA INTEGRADO DE MULTAS
+    </title>
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0, shrink-to-fit=no">
+    <meta charset="utf-8">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="simit/resources/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="simit/resources/images/favicon.ico" type="image/x-icon">
+
+    <!-- Fonts -->
+    <link rel="stylesheet"
+        href="css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&amp;display=swap">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="simit/dist/css/style.css">
+    <link rel="stylesheet" href="ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="boxicons%402.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <style>
+        .disabled {
+            display: none !important;
+        }
+
+        #container-spinner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(128, 128, 128, 0.7);
+            /* gris semitransparente */
+            /* display: none;  Se elimina para que .show/.disabled controlen la visibilidad */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            pointer-events: all;
+            user-select: none;
+        }
+
+        #spinner {
+            width: 100px;
+            height: 100px;
+            border: 15px solid #888;
+            border-top: 15px solid #09f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(235, 238, 241, 0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.simit-spinner {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 7px solid #cfd6dd; /* gris base */
+  border-top: 7px solid #1d4ed8;
+  border-right: 7px solid #3b82f6;
+  border-bottom: 7px solid #93c5fd;
+  animation: simit-spin 1.1s linear infinite;
+}
+
+@keyframes simit-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+    </style>
+</head>
+
+<body class="accesible-text-minus h-100 i4t-simit-home-CO_FCM i4t-CO_FCM i4t-desktop i4t-simit-Gral i4t-carouselsSTOP i4t-top">
+
+  
+
+    <div class="container-fluid position-fixed-banner">
+        <div
+            class="row bg-primary justify-content-md-between justify-content-center banner-accesibilidad header__navbar align-items-center">
+            <div id="initStep5" role="navigation" aria-label="Información contacto SIMIT"
+                class="d-flex flex-wrap navbar__items-container align-items-center"
+                data-insuit-uuid="f02209a5-bee0-4284-8888-b817db119414">
+                <div class="col-auto pl-lg-5 px-md-4 pl-1 pr-0"><a role="button" aria-label="Panel accesibilidad"
+                        id="initStep6" href="javascript:;" class="action-accessibility-panel" data-insuit-top="-10px"
+                        data-insuit-left="-25%" data-insuit-height="+10px" data-insuit-width="+50%"
+                        aria-controls="accessibility-panel" data-insuit-uuid="1f57e98b-8c10-4a67-8bd5-7b45a770c606"><em
+                            class="bx bx-handicap bx-tada-hover mt-1 popover-acc" data-original-title="" title=""
+                            ></em></a></div>
+                <div class="col-auto pl-lg-3 pr-md-4 pl-1 pr-2"><a href="tel:333 602 6800"
+                        title="Línea celular (+57) 333 602 68 00: 333 602 6800"
+                        data-insuit-uuid="512bc931-5e36-4fd9-8151-f5c84c7a0986"><em
+                            class="bx bx-mobile-alt bx-tada-hover mr-1"></em><span class="fs-13 align-text-top"
+                            data-orig-font-size="13px" data-orig-line-height="19.5px" data-orig-letter-spacing="0"
+                            data-insuit-uuid="7dababc2-6f86-4ed6-aca8-aee036dcd0ec">Línea celular (+57) 333 602 68
+                            00</span></a></div>
+                <div class="col-auto pl-lg-3 pr-md-4 pl-1 pr-2"><a href="tel:+01 8000 413 588"
+                        aria-label="telefono. 01 8000 413 588"
+                        data-insuit-uuid="8d736a9e-8145-469e-963e-854116453f32"><em
+                            class="bx bx-phone bx-tada-hover mr-1"></em><span class="fs-13 align-text-top"
+                            data-orig-font-size="13px" data-orig-line-height="19.5px" data-orig-letter-spacing="0"
+                            data-insuit-uuid="a0a847bb-f41a-4f5b-8ddf-f977672736fa">01 8000 413 588</span></a></div>
+                <div class="col-auto pr-0 pl-1 pl-lg-3 d-none d-md-block"><a href="mailto:contactosimit@fcm.org.co"
+                        rel="noopener noreferrer" data-insuit-uuid="fce4ae12-f547-47d7-a4e3-fad138413155"><em
+                            class="bx bx-envelope bx-tada-hover mr-1"></em><span class="fs-13 align-text-top"
+                            data-orig-font-size="13px" data-orig-line-height="19.5px" data-orig-letter-spacing="0"
+                            data-insuit-uuid="2ea68990-6512-46a3-a86d-7b3ed8fbec76">contactosimit@fcm.org.co</span></a>
+                </div>
+            </div>
+            <div id="initStep4" role="navigation" aria-label="Redes sociales." class="d-lg-flex d-md-flex d-none"
+                data-insuit-uuid="914d4d0d-0e63-459a-a7bb-e1a05dd552e8">
+                <div class="col-auto pr-0"><a aria-label="Instagram Federación Colombia de Municipios"
+                        href="https://www.instagram.com/fedemunicipios/" target="_blank" rel="noopener noreferrer"
+                        data-insuit-uuid="ab190808-1fb9-49cc-9329-e03a72299f92"><em
+                            class="bx bxl-instagram bx-tada-hover mt-1 popover-ins" data-original-title="" title=""
+                            ></em></a></div>
+                <div class="col-auto pr-0"><a aria-label="Twitter Federación Colombia de Municipios"
+                        href="https://twitter.com/fedemunicipios" target="_blank" rel="noopener noreferrer"
+                        data-insuit-uuid="f8c8149d-a6f8-45e7-badd-50500a1097b9"><em
+                            class="bx bxl-twitter bx-tada-hover mt-1 popover-tw" data-original-title=""
+                            title=""></em></a></div>
+                <div class="col-auto pr-0"><a aria-label="Facebook Federación Colombia de Municipios"
+                        href="https://www.facebook.com/FederacionColombianadeMunicipios/" target="_blank"
+                        rel="noopener noreferrer" data-insuit-uuid="3a88da84-56ca-478c-82ec-c7e836f9d3e6"><em
+                            class="bx bxl-facebook bx-tada-hover mt-1 popover-fb" data-original-title=""
+                            title=""></em></a></div>
+                <div class="col-auto mr-3"><a aria-label="Youtube Federación Colombia de Municipios"
+                        href="https://www.youtube.com/user/fedemunicipios" target="_blank" rel="noopener noreferrer"
+                        data-insuit-uuid="459bb2a6-6c58-45eb-b8b9-09539a35695c"><em
+                            class="bx bxl-youtube bx-tada-hover mt-1 popover-yt" data-original-title=""
+                            title=""></em></a></div>
+            </div>
+        </div>
+    </div>
+    <div id="gadgets-menu" class="container-fluid banner-fixed">
+        <div role="banner" aria-owns="initStep5 initStep4" id="i4t-header" aria-label="Cabecera de la página."
+            data-insuit-top="-35px" data-insuit-height="+35px" data-insuit-uuid="45eb110b-e1cb-4e8c-abf1-9747b168566c">
+            <nav aria-label="Menú de navegación principal SIMIT"
+                class="row navbar main-header navbar-expand-lg navbar-light mb-4 pb-3 pt-2 bg-white shadow-sm mt-2 mt-md-0"
+                data-a11y-color="white"><a href="https://www.fcm.org.co/simit/#/home-public"
+                    aria-label="Simit - Federación Colombiana de Municipios" class="navbar-brand col col-md-2 p-0 ml-4"
+                    data-insuit-click="setTimeout(function(){window.location.reload();}, 1000);"
+                    data-insuit-uuid="2f409590-736f-4686-9fbf-07c9ecae1341" ><img src="img/logo-landing.png"
+                        width="auto" height="auto" alt="Simit - Federación Colombiana de Municipios"
+                        title="Simit - Federación Colombiana de Municipios" class="img-fluid"
+                        data-insuit-uuid="76e6554b-5aeb-4dfa-b81a-f2ea5d05fee1"></a>
+                <ul role="menubar" aria-label="Atención al ciudadano" id="initStep3"
+                    class="list-unstyled flex-row d-lg-flex d-md-flex d-none row no-gutters align-items-center ml-auto mb-0"
+                    data-insuit-left="-2%" aria-orientation="horizontal"
+                    data-insuit-uuid="f215ef3d-2377-4634-994d-e1408258dd72">
+                    <li role="menuitem" class="mr-4" data-insuit-top="-5px" data-insuit-left="-2%"
+                        data-insuit-height="+5px" data-insuit-width="+80%"
+                        data-insuit-uuid="53bfc042-8b7c-48bf-be52-4ff29395f451"><a
+                            href="https://www.fcm.org.co/simit/#/home-public" aria-label="Ir al inicio"
+                            data-insuit-click="setTimeout(function(){window.location.reload();}, 1000);"
+                            data-insuit-uuid="c57c4f1b-2e4a-4a3d-a03d-7ba5918c678d"><em
+                                class="bx bx-home bx-tada-hover popover-inicio" data-original-title="" title=""
+                                ></em></a></li>
+                    <li role="menuitem" class="dropdown dropdown-transparencia-atencion mr-4 pointer"
+                        aria-controls="i4t-id-kclw04hb3" data-insuit-uuid="50ab0168-f32f-406d-96c0-eda75b441aac"><a
+                            id="transparencia" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            tabindex="0" data-insuit-uuid="6b64be4d-a2e2-4d28-b0c7-9448446678eb">
+                            Transparencia<em class="bx bx-caret-down" ></em></a>
+                        <ul role="menu" aria-labelledby="transparencia" class="dropdown-transparencia dropdown-menu"
+                            data-a11y-color="white" id="i4t-id-kclw04hb3" aria-orientation="vertical"
+                            data-insuit-uuid="bc369184-a012-4071-9c28-344eac30c82e"
+                            aria-owns="i4t-id-xjv9kobt9 i4t-id-g3x226qve i4t-id-uqvd2t8x6 i4t-id-mxb03xamj i4t-id-k4megrj53 i4t-id-w1vdotjun i4t-id-h885zvsg9 i4t-id-1jhmkli6s i4t-id-6n35phxmg i4t-id-frus2z3gm i4t-id-qcr7jx35i">
+                            <li role="presentation"><a role="menuitem" tabindex="0"
+                                    href="https://www.fcm.org.co/informacion-de-la-entidad/" target="_blank"
+                                    rel="noopener noreferrer" class="dropdown-item"
+                                    data-insuit-uuid="deda594d-eb67-4594-a372-866a9ecec6cd"
+                                    id="i4t-id-xjv9kobt9">Información de la entidad</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="0"
+                                    href="https://www.fcm.org.co/normativa/" target="_blank" rel="noopener noreferrer"
+                                    class="dropdown-item" data-insuit-uuid="5665fefe-33f7-4adf-8f13-6bb2f7734290"
+                                    id="i4t-id-g3x226qve">Normativa</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="0"
+                                    href="https://www.fcm.org.co/contratacion/" target="_blank"
+                                    rel="noopener noreferrer" class="dropdown-item"
+                                    data-insuit-uuid="b9c16403-dd26-4709-9233-18ea66f09934"
+                                    id="i4t-id-uqvd2t8x6">Contratación</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="0"
+                                    href="https://www.fcm.org.co/planeacion-presupuesto-e-informes/" target="_blank"
+                                    rel="noopener noreferrer" class="dropdown-item"
+                                    data-insuit-uuid="1d264cf7-401e-4e63-983d-d9c36e8ac8bb"
+                                    id="i4t-id-mxb03xamj">Planeación, Presupuesto e Informes</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="0"
+                                    href="https://www.fcm.org.co/tramites/" target="_blank" rel="noopener noreferrer"
+                                    class="dropdown-item" data-insuit-uuid="5ee4e009-a717-45b7-939d-73dcd71a1ba7"
+                                    id="i4t-id-k4megrj53">Trámites</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="0"
+                                    href="https://www.fcm.org.co/participa/" target="_blank" rel="noopener noreferrer"
+                                    class="dropdown-item" data-insuit-uuid="965ed410-c559-4885-9e12-df20aff826a7"
+                                    id="i4t-id-w1vdotjun">Participa</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="0"
+                                    href="https://www.fcm.org.co/datos-abiertos/" target="_blank"
+                                    rel="noopener noreferrer" class="dropdown-item"
+                                    data-insuit-uuid="3d034ff5-c368-4075-ba58-85f073165a80" id="i4t-id-h885zvsg9">Datos
+                                    abiertos</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="0"
+                                    href="https://www.fcm.org.co/informacion-especifica-para-grupos-de-interes/"
+                                    target="_blank" rel="noopener noreferrer" class="dropdown-item"
+                                    data-insuit-uuid="b0856071-3338-475d-8f56-31e57aa66915"
+                                    id="i4t-id-1jhmkli6s">Información específica para Grupos de Interés</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="0"
+                                    href="https://www.fcm.org.co/obligacion-de-reporte-de-informacion/" target="_blank"
+                                    rel="noopener noreferrer" class="dropdown-item"
+                                    data-insuit-uuid="594f8e00-5e71-4a51-a0c4-f8ca1fd36200"
+                                    id="i4t-id-6n35phxmg">Obligación de reporte de información</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="0"
+                                    href="https://www.fcm.org.co/informacion-tributaria-en-entidades-territoriales/"
+                                    target="_blank" rel="noopener noreferrer" class="dropdown-item"
+                                    data-insuit-uuid="1152de48-5bbf-4f2c-aaeb-d7acda2b1436"
+                                    id="i4t-id-frus2z3gm">Información tributaria en entidades territoriales</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="0"
+                                    href="https://www.fcm.org.co/estadisticas/" target="_blank"
+                                    rel="noopener noreferrer" class="dropdown-item"
+                                    data-insuit-uuid="dff922db-93e2-403d-89f3-41dc47b781cd"
+                                    id="i4t-id-qcr7jx35i">Estadísticas</a></li>
+                        </ul>
+                    </li>
+                    <li role="menuitem" class="mr-4" data-insuit-uuid="77727e0d-f6f5-4c64-9c28-d6001313cf2f"><a
+                            href="https://www.fcm.org.co/participa/" target="_blank" rel="noopener noreferrer"
+                            data-insuit-uuid="62fdbcb6-4141-411c-82c1-a0bdfc99317f">Participa</a></li>
+                    <li role="menuitem" class="dropdown dropdown-atencion-ciudadano mr-4 pointer"
+                        aria-controls="i4t-id-k07b1qxfa" data-insuit-uuid="2556cf72-6a42-424b-a248-253bccea3373"><a
+                            id="atencionAlCiudadano" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            tabindex="0" data-insuit-uuid="d76742a5-6dd0-404d-8759-05401396b782">
+                            Atención al ciudadano<em class="bx bx-caret-down"></em></a>
+                        <div role="menu" aria-labelledby="atencionAlCiudadano" class="dropdown-atencion dropdown-menu"
+                            data-a11y-color="white" id="i4t-id-k07b1qxfa" aria-orientation="vertical"
+                            data-insuit-uuid="99e035a0-2f3b-455a-834d-bb72c8e6314c"><a role="menuitem" tabindex="0"
+                                href="https://www.fcm.org.co/simit/#/puntos-pago" target="_self"
+                                rel="noopener noreferrer" class="dropdown-item"
+                                data-insuit-click="setTimeout(function(){window.location.reload();}, 1000);"
+                                data-insuit-uuid="733f9e40-770f-4528-9d8d-eb2c4969aaca">Puntos de pago</a> <a
+                                role="menuitem" tabindex="0" href="https://www.fcm.org.co/preguntas-frecuentes-simit/"
+                                target="_blank" rel="noopener noreferrer" class="dropdown-item"
+                                data-insuit-uuid="c7b6726f-1df2-4b8c-b32d-63eb6b8cebd7">Preguntas frecuentes</a> <a
+                                role="menuitem" tabindex="0"
+                                href="https://pqrsdsimit.fcm.org.co/Publico/IndexWebPQRS.aspx" target="_blank"
+                                rel="noopener noreferrer" class="dropdown-item"
+                                data-insuit-uuid="7e45ff2c-2e7a-45ce-a894-3adb10eade59">Gestión de PQRSD</a> <a
+                                role="menuitem" tabindex="0"
+                                href="https://pqrsdsimit.fcm.org.co/Account/Login?ReturnUrl=%2F" target="_blank"
+                                rel="noopener noreferrer" class="dropdown-item"
+                                data-insuit-uuid="24fb74ac-fa72-46d4-9ae4-11f19f101986">Contacto</a>
+                            <div role="menuitem" data-toggle="dropdown" data-display="static" aria-haspopup="true"
+                                tabindex="0"
+                                class="dropleft dropdown-item d-flex justify-content-between align-items-center dropdown-guias-uso pointer"
+                                aria-controls="i4t-id-wc22j5l6v"
+                                data-insuit-uuid="4d379833-365c-44c6-9e43-c7989864c3f1">
+                                Guías de uso<em class="bx bxs-right-arrow text-muted fs-11"></em>
+                                <div tabindex="0" class="dropdown-menu" data-a11y-color="white" id="i4t-id-wc22j5l6v"><a
+                                        role="menuitem" tabindex="0" class="dropdown-item"
+                                        data-insuit-uuid="0290dfae-7459-40ef-8381-e966ec7031ce">¿Cómo pagar mis
+                                        multas?</a> <a role="menuitem" tabindex="0" href="javascript:;"
+                                        class="dropdown-item"
+                                        data-insuit-uuid="74004ac2-aab3-4b14-a4c1-d62a0b0d81b2">Conoce nuestro sitio</a>
+                                </div>
+                            </div>
+                            <div role="menuitem" data-toggle="dropdown" data-display="static" aria-haspopup="true"
+                                tabindex="0"
+                                class="dropleft dropdown-item d-flex justify-content-between align-items-center dropdown-guias-uso pointer"
+                                aria-controls="i4t-id-jqp4105bl"
+                                data-insuit-uuid="22a0ebfc-2066-4818-a075-815245017bca">
+                                Video tutoriales<em class="bx bxs-right-arrow text-muted fs-11"></em>
+                                <div tabindex="0" class="dropdown-menu" data-a11y-color="white" id="i4t-id-jqp4105bl"><a
+                                        role="menuitem" tabindex="0" onclick="event.stopPropagation();"
+                                        href="https://www.fcm.org.co/video-tutoriales/#consultas" target="_blank"
+                                        rel="noopener noreferrer" class="dropdown-item"
+                                        data-insuit-uuid="6d17a665-3d02-4bae-92da-d13c6b64695a">Consultar multas</a> <a
+                                        role="menuitem" tabindex="0" onclick="event.stopPropagation();"
+                                        href="https://www.fcm.org.co/video-tutoriales/#pagos" target="_blank"
+                                        rel="noopener noreferrer" class="dropdown-item"
+                                        data-insuit-uuid="e93f4cc4-c0ff-4fef-9679-181ede551b59">Pagar multas y
+                                        comparendos</a> <a role="menuitem" tabindex="0"
+                                        onclick="event.stopPropagation();"
+                                        href="https://www.fcm.org.co/video-tutoriales/#acuerdos" target="_blank"
+                                        rel="noopener noreferrer" class="dropdown-item"
+                                        data-insuit-uuid="cc76b4ab-a8d2-450b-b175-c1119ac7b57c">Pagar acuerdos de
+                                        pago</a> <a role="menuitem" tabindex="0" onclick="event.stopPropagation();"
+                                        href="https://www.fcm.org.co/video-tutoriales/#liquidacion" target="_blank"
+                                        rel="noopener noreferrer" class="dropdown-item"
+                                        data-insuit-uuid="78274f98-7532-4298-a280-679de53da085">Descargar documento para
+                                        pago</a></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li role="none" data-insuit-uuid="6bf37d73-908f-4507-a483-a62de75d4e77"
+                        data-insuit-role-removed="true"><!----></li>
+                </ul>
+                <div class="d-flex flex-row bd-highlight order-2 order-lg-3"><a role="button" aria-label="Menú SIMIT"
+                        href="javascript:;" id="openMenu" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        class="toggle-menu ml-4 px-2 pt-1 text-dark" aria-controls="sideMenu"
+                        data-insuit-uuid="913b1393-1232-49b1-a1bb-daf843b0e806"><em id="initStep2"
+                            class="bx bx-menu menu-icon" ></em></a></div>
+            </nav>
+        </div>
+    </div>
+    <!-- content -->
+    <div class="h-100">
+        <div class="container-fluid main-layout-content h-100" id="main-layout-content">
+            <div class="row main-row">
+                <div class="col-12 d-flex flex-column main-column">
+
+                    <!-- master view -->
+                    <div id="mainView" class="h-100" role="region" aria-owns="i4t-civii-button"
+                        aria-label="Contenido principal."
+                        data-insuit-in="i4t(this).find('#carousel-home').dispatchEvent('mouseover');"
+                        data-insuit-enter="i4t(this).find('#carousel-home').dispatchEvent('mouseover');"
+                        data-insuit-uuid="38ca339b-e4c0-4772-b5aa-5909e83bf113">
+                        <div class="container-fluid">
+                            <div data-step="initStep7" id="initStep7" class="initStep7"></div>
+                            <div class="col-lg-12 px-lg-3 px-0">
+                                <div class="row">
+                                    <div class="col-lg-4" >
+                                        <div ><img src="img/bg-home-circle.png"
+                                                alt="Simit - Federación Colombiana de Municipios"
+                                                class="bg-img-1 img-fluid" aria-hidden="true" tabindex="-1"
+                                                data-insuit-uuid="71a58d4e-4994-4bb6-b4e3-365e352c5180"></div>
+                                        <div class="d-lg-block d-none" ><img src="img/bg-home.png"
+                                                alt="Simit - Federación Colombiana de Municipios"
+                                                title="Simit - Federación Colombiana de Municipios"
+                                                class="bg-img-2 img-fluid animate__animated animate__fadeInLeft"
+                                                data-insuit-uuid="83511e75-0dcd-4129-a2a0-59b45140f585"></div>
+                                    </div>
+                                    <div role="region" class="col-12 col-lg-7 col-xl-5  pr-lg-5 mr-lg-5 padding-main"
+                                        aria-labelledby="i4t-id-pdzbve00b"
+                                        data-insuit-uuid="648a0f4b-6e82-438e-b972-7808417a6d3f">
+                                        <div data-step="1" id="initStep1" aria-labelledby="descripcionConsulta">
+                                            <h1 class="text-secondary font-weight-bold main-title"
+                                                data-orig-font-size="40px" data-orig-line-height="48px"
+                                                data-orig-letter-spacing="0" id="i4t-id-pdzbve00b"
+                                                data-insuit-uuid="addc9317-0030-43f2-be5b-c539fd14fd6b">Estado de cuenta
+                                            </h1>
+                                            <p id="descripcionConsulta" class="fs-17 text-dark"
+                                                data-orig-font-size="17px" data-orig-line-height="25.5px"
+                                                data-orig-letter-spacing="0"
+                                                data-insuit-uuid="962fa042-810f-4d90-8f12-398ec4ae51ee">Consulta aquí
+                                                comparendos, multas y acuerdos de pago</p>
+                                          
+                                                <div class="input-group input-main mb-3" ><input
+                                                        id="placa" data-step="4"
+                                                        placeholder="Número de identificación o placa del vehículo"
+                                                        aria-label="Número de identificación o placa del vehículo"
+                                                        class="form-control border-0" data-a11y-color="white">
+                                                    <div class="input-group-append">
+                                                      <button  onclick="consultar()"
+                                                            aria-label="Consultar estado de cuenta" data-step="3"
+                                                            class="btn btn-primary font-weight-bold btn-sm py-1"
+                                                            data-orig-font-size="14px" data-orig-line-height="21px"
+                                                            data-orig-letter-spacing="0"><em
+                                                                class="bx bx-search align-middle fs-27"
+                                                                ></em></button></div>
+                                                </div>
+
+                                               
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="initStep8" class="row margin-top-card">
+                                    <div class="col-lg-4 col-12">
+                                        <div id="carousel-home" role="region" aria-label="Carrusel informativo SIMIT"
+                                            class="owl-carousel owl-theme h-100 owl-loaded owl-drag"
+                                            data-a11y-color="white" aria-live="polite"
+                                            data-insuit-enter="i4t(this).append('&lt;span&gt; &lt;/span&gt;').remove();"
+                                            data-insuit-uuid="a9447243-943a-4edb-adf1-77fcdfbbf961">
+                                            <div class="owl-stage-outer box-shadow-sm">
+                                                <div class="owl-stage"
+                                                    style="transform: translate3d(-1685px, 0px, 0px); transition: 0.25s; width: 3091px;">
+                                                    <div class="owl-item cloned" style="width: 280.984px;" role="region"
+                                                        aria-label="¿Deseas solicitar una PQRSD?"
+                                                        data-insuit-uuid="dfcf7d36-a8b8-4a3a-aa66-ac88b2f62162"
+                                                        aria-hidden="true" tabindex="-1">
+                                                        <div class="item">
+                                                            <div class="card card-carousel-1 border-0"
+                                                                data-a11y-color="white">
+                                                                <div class="card-body pb-4"><a
+                                                                        href="https://pqrsdsimit.fcm.org.co/Publico/IndexWebPQRS.aspx"
+                                                                        target="_blank" rel="noopener noreferrer"
+                                                                        aria-labelledby="pqrds-id"
+                                                                        aria-label="¿Deseas solicitar  una PQRSD?. Descubre la forma en la que podemos solucionar tus inconvenientes."
+                                                                        tabindex="-1"
+                                                                        data-insuit-uuid="1877b7c9-cebc-4671-aced-a494dc3e8d8b">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8 col-md-6">
+                                                                                <h5 class="text-secondary mb-0 d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="af21fd20-11fb-4fc2-a377-3377d21e46d3">
+                                                                                    ¿Deseas solicitar</h5>
+                                                                                <h5 class="text-secondary mb-0 font-weight-bold d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="3e022b48-c76a-47dc-95c6-e862ff0029da">
+                                                                                    una PQRSD?</h5>
+                                                                                <h5 id="pqrds-id_i4t1"
+                                                                                    class="text-secondary mb-0 d-lg-none d-md-block"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    aria-hidden="true" tabindex="-1"
+                                                                                    data-insuit-uuid="c119e76e-2a68-45e8-9ebc-1920719a8952">
+                                                                                    ¿Deseas solicitar <span
+                                                                                        class="text-secondary mb-0 font-weight-bold"
+                                                                                        data-orig-font-size="20px"
+                                                                                        data-orig-line-height="24px"
+                                                                                        data-orig-letter-spacing="0"
+                                                                                        data-insuit-uuid="64cd8cb0-bc76-482b-876f-5444076ecb86">
+                                                                                        una PQRSD?</span></h5>
+                                                                                <p class="fs-13 mb-3 mb-lg-0"
+                                                                                    data-orig-font-size="13px"
+                                                                                    data-orig-line-height="19.5px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="36dfef3c-feb4-47ac-8186-69b6d96f2a8e">
+                                                                                    Descubre la forma en la que podemos
+                                                                                    solucionar tus inconvenientes. </p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
+                                                                                <img src="simit2/resources/images/img-carousel-6.png"
+                                                                                    title="Descubre la forma en la que podemos solucionar tus inconvenientes."
+                                                                                    class="img-fluid"
+                                                                                    alt="Descubre la forma en la que podemos solucionar tus inconvenientes."
+                                                                                    data-insuit-uuid="df7983fb-6817-485f-a1ca-40a7bb116dfe">
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="owl-item cloned" style="width: 280.984px;" role="region"
+                                                        aria-label="¡Lee aquí nuestras últimas noticias!"
+                                                        data-insuit-uuid="10456e0f-9392-421c-939f-83103ebe4b66"
+                                                        aria-hidden="true" tabindex="-1">
+                                                        <div class="item">
+                                                            <div class="card card-carousel-1 border-0"
+                                                                data-a11y-color="white">
+                                                                <div class="card-body pb-4"><a
+                                                                        href="https://www.fcm.org.co/noticias/"
+                                                                        target="_blank" rel="noopener noreferrer"
+                                                                        aria-labelledby="ultimas-noticias-id"
+                                                                        aria-label="¡Lee aquí nuestras últimas noticias!. Ingresa aquí y entérate de los acontecimientos más recientes."
+                                                                        tabindex="-1"
+                                                                        data-insuit-uuid="ce36113e-4c97-4402-95ec-a986a0b9b5cf">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8 col-md-6">
+                                                                                <h5 class="text-secondary mb-0 d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="1b9fdcb0-aeea-4496-a68d-d979d812c87a">
+                                                                                    ¡Lee aquí nuestras</h5>
+                                                                                <h5 class="text-secondary mb-0 font-weight-bold d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="a52e35b7-b738-45bc-ab36-a214a4d589e5">
+                                                                                    últimas noticias!</h5>
+                                                                                <h5 id="ultimas-noticias-id_i4t1"
+                                                                                    class="text-secondary mb-0 d-lg-none d-md-block"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    aria-hidden="true" tabindex="-1"
+                                                                                    data-insuit-uuid="9f6a4cce-b9e8-4464-ac63-589a3c5e072a">
+                                                                                    ¡Lee aquí nuestras <span
+                                                                                        class="text-secondary mb-0 font-weight-bold"
+                                                                                        data-orig-font-size="20px"
+                                                                                        data-orig-line-height="24px"
+                                                                                        data-orig-letter-spacing="0"
+                                                                                        data-insuit-uuid="ce335e3c-2c8c-4899-b553-0a5db8d27c0e">últimas
+                                                                                        noticias!</span></h5>
+                                                                                <p class="fs-13 mb-3 mb-lg-0"
+                                                                                    data-orig-font-size="13px"
+                                                                                    data-orig-line-height="19.5px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="f5e3bb30-c5db-464b-b0be-1977573e1296">
+                                                                                    Ingresa aquí y entérate de los
+                                                                                    acontecimientos más recientes. </p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
+                                                                                <img src="img/img-carousel-2.png"
+                                                                                    alt="Lee nuestras últimas noticias."
+                                                                                    class="img-fluid"
+                                                                                    data-insuit-uuid="f7569a9c-2777-46fc-9234-d94e3687d04b">
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="owl-item cloned" style="width: 280.984px;" role="region"
+                                                        aria-hidden="true" tabindex="-1"
+                                                        aria-labelledby="i4t-id-y32p6dmlz"
+                                                        data-insuit-uuid="6921eca0-1a14-4b71-92e4-d52a6fda2259">
+                                                        <div class="item">
+                                                            <div class="card card-carousel-3 border-0"
+                                                                data-a11y-color="white">
+                                                                <div class="card-body pb-4"><a href="javascript:;"
+                                                                        aria-labelledby="consulta-placas"
+                                                                        aria-label="¡Información importante!. Si consultas por placa, se mostrarán las multas asociadas al vehículo independiente del conductor."
+                                                                        tabindex="-1"
+                                                                        data-insuit-uuid="948e4487-71dc-4ee8-9b71-f4970e0ecfa9">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8 col-md-6 pr-0">
+                                                                                <h5 class="text-secondary mb-2"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    id="i4t-id-y32p6dmlz"
+                                                                                    data-insuit-uuid="e41996d0-7a59-4f87-9d73-d9e07640228b">
+                                                                                    ¡Información <span
+                                                                                        class="font-weight-bold"
+                                                                                        data-orig-font-size="20px"
+                                                                                        data-orig-line-height="24px"
+                                                                                        data-orig-letter-spacing="0"
+                                                                                        data-insuit-uuid="69aa1018-4f2c-41ea-937e-171abd415438">importante!</span>
+                                                                                </h5>
+                                                                                <p id="consulta-placas_i4t1"
+                                                                                    class="fs-13 mb-1 mb-lg-0"
+                                                                                    data-orig-font-size="13px"
+                                                                                    data-orig-line-height="19.5px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="3ea571c7-78eb-41b1-a076-be9c8ff77570">
+                                                                                    Si consultas por placa, se mostrarán
+                                                                                    las multas asociadas al vehículo
+                                                                                    independiente del conductor. </p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
+                                                                                <img src="simit2/resources/images/img-carousel-8.png"
+                                                                                    alt="Conoce nuestros puntos de pago."
+                                                                                    title="Conoce nuestros puntos de pago."
+                                                                                    class="img-fluid"
+                                                                                    data-insuit-uuid="3a1cdab0-0559-4feb-884a-d209aa241979">
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="owl-item" style="width: 280.984px;" role="region"
+                                                        aria-label="¡Simit evoluciona para ti!"
+                                                        data-insuit-uuid="451efb8e-c88f-4335-beab-07fe37b52245"
+                                                        aria-hidden="true" tabindex="-1">
+                                                        <div class="item">
+                                                            <div class="card card-carousel-1 border-0"
+                                                                data-a11y-color="white">
+                                                                <div class="card-body pb-4">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-8 col-md-6">
+                                                                            <h5 id="contactanos-id"
+                                                                                class="text-secondary mb-0"
+                                                                                data-orig-font-size="20px"
+                                                                                data-orig-line-height="24px"
+                                                                                data-orig-letter-spacing="0"
+                                                                                data-insuit-uuid="1f155138-02dc-4529-8acf-023e16fe36dc">
+                                                                                ¡Simit evoluciona</h5>
+                                                                            <h5 class="text-secondary font-weight-bold"
+                                                                                data-orig-font-size="20px"
+                                                                                data-orig-line-height="24px"
+                                                                                data-orig-letter-spacing="0"><strong
+                                                                                    class="insuit-b-to-strong"
+                                                                                    data-insuit-uuid="1eb8a3f2-aea4-4063-9e63-67943618591b">para
+                                                                                    ti!</strong></h5>
+                                                                            <p class="fs-13 mb-3 mb-lg-0"
+                                                                                data-orig-font-size="13px"
+                                                                                data-orig-line-height="19.5px"
+                                                                                data-orig-letter-spacing="0"
+                                                                                data-insuit-uuid="8afb8600-d570-4133-8a0c-71993afc3882">
+                                                                                Ahora podremos estar siempre en contacto
+                                                                                desde nuestra línea celular <strong
+                                                                                    class="insuit-b-to-strong"
+                                                                                    data-insuit-uuid="f4619e5d-cad3-40af-9450-a4d2ef347e34">333-6026800</strong>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
+                                                                            <img src="simit2/resources/images/img-carousel-1.png"
+                                                                                alt="Diligencia el formulario y te ayudaremos a resolver tus inquietudes."
+                                                                                title="¡Simit evoluciona"
+                                                                                class="img-fluid"
+                                                                                data-insuit-uuid="358a00f3-743e-42c7-a41a-337f1a0ad4c1">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="owl-item" style="width: 280.984px;" role="region"
+                                                        aria-label="Federación Colombiana de Municipios"
+                                                        data-insuit-uuid="32ebf8f8-c1cc-4a9a-99cf-cd3af5f6fc9c"
+                                                        aria-hidden="true" tabindex="-1">
+                                                        <div class="item">
+                                                            <div class="card card-carousel-2 border-0"
+                                                                data-a11y-color="white">
+                                                                <div class="card-body pb-4"><a
+                                                                        href="https://www.fcm.org.co/" target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        aria-labelledby="simit-id"
+                                                                        aria-label="Federación Colombiana de Municipios. Entérate de la labor que ejerce y la importancia de su servicio."
+                                                                        tabindex="-1"
+                                                                        data-insuit-uuid="d8fcd6e1-8dd1-40c2-8393-bfffc07d9771">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8 col-md-6">
+                                                                                <h5 class="text-secondary mb-0 d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="84a0029b-31da-4035-aa77-ef57c641dea7">
+                                                                                    Federación Colombiana</h5>
+                                                                                <h5 class="text-secondary mb-0 font-weight-bold d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="58faaf96-b2b1-47f7-b8f5-527fe8512431">
+                                                                                    de Municipios</h5>
+                                                                                <h5 id="simit-id"
+                                                                                    class="text-secondary mb-0 d-lg-none d-md-block"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    aria-hidden="true" tabindex="-1"
+                                                                                    data-insuit-uuid="cd172f5e-efa9-4b21-a11b-4ea9213d3e9b">
+                                                                                    Federación Colombiana <span
+                                                                                        class="text-secondary mb-0 font-weight-bold"
+                                                                                        data-orig-font-size="20px"
+                                                                                        data-orig-line-height="24px"
+                                                                                        data-orig-letter-spacing="0"
+                                                                                        data-insuit-uuid="6801d229-6649-487a-8564-623d11c72def">de
+                                                                                        Municipios</span></h5>
+                                                                                <p class="fs-13 mb-3 mb-lg-0"
+                                                                                    data-orig-font-size="13px"
+                                                                                    data-orig-line-height="19.5px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="70a5229d-53aa-4a94-b2b8-844041adcd41">
+                                                                                    Entérate de la labor que ejerce y la
+                                                                                    importancia de su servicio. </p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
+                                                                                <img src="simit2/resources/images/img-carousel-3.png"
+                                                                                    alt="Simit - Federación Colombiana de Municipios"
+                                                                                    title="Simit - Federación Colombiana de Municipios"
+                                                                                    class="img-fluid"
+                                                                                    data-insuit-uuid="056efdcd-b98d-44e4-93c6-a6bb5216daf6">
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="owl-item" style="width: 280.984px;" role="region"
+                                                        aria-label="¿Deseas solicitar una PQRSD?"
+                                                        data-insuit-uuid="4d5df51a-de4e-4830-988b-de9dcb6a59f2"
+                                                        aria-hidden="true" tabindex="-1">
+                                                        <div class="item">
+                                                            <div class="card card-carousel-1 border-0"
+                                                                data-a11y-color="white">
+                                                                <div class="card-body pb-4"><a
+                                                                        href="https://pqrsdsimit.fcm.org.co/Publico/IndexWebPQRS.aspx"
+                                                                        target="_blank" rel="noopener noreferrer"
+                                                                        aria-labelledby="pqrds-id"
+                                                                        aria-label="¿Deseas solicitar  una PQRSD?. Descubre la forma en la que podemos solucionar tus inconvenientes."
+                                                                        tabindex="-1"
+                                                                        data-insuit-uuid="fbee0d68-eee3-41ba-b743-eb1f86072fec">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8 col-md-6">
+                                                                                <h5 class="text-secondary mb-0 d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="10581e0b-f7ee-4c4b-acc3-208c74bf1f92">
+                                                                                    ¿Deseas solicitar</h5>
+                                                                                <h5 class="text-secondary mb-0 font-weight-bold d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="483f8bc7-03f9-467a-92e1-d0dec0f2d7f9">
+                                                                                    una PQRSD?</h5>
+                                                                                <h5 id="pqrds-id_i4t1_i4t1"
+                                                                                    class="text-secondary mb-0 d-lg-none d-md-block"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    aria-hidden="true" tabindex="-1"
+                                                                                    data-insuit-uuid="75e3ab24-88d0-4ef6-a6dd-f1f2e6d3d8e1">
+                                                                                    ¿Deseas solicitar <span
+                                                                                        class="text-secondary mb-0 font-weight-bold"
+                                                                                        data-orig-font-size="20px"
+                                                                                        data-orig-line-height="24px"
+                                                                                        data-orig-letter-spacing="0"
+                                                                                        data-insuit-uuid="5916e558-9a47-4a68-abfa-8a6fea16bc8a">
+                                                                                        una PQRSD?</span></h5>
+                                                                                <p class="fs-13 mb-3 mb-lg-0"
+                                                                                    data-orig-font-size="13px"
+                                                                                    data-orig-line-height="19.5px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="5b49fdaf-112a-400b-93b2-e1c20edc921c">
+                                                                                    Descubre la forma en la que podemos
+                                                                                    solucionar tus inconvenientes. </p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
+                                                                                <img src="simit2/resources/images/img-carousel-6.png"
+                                                                                    title="Descubre la forma en la que podemos solucionar tus inconvenientes."
+                                                                                    class="img-fluid"
+                                                                                    alt="Descubre la forma en la que podemos solucionar tus inconvenientes."
+                                                                                    data-insuit-uuid="cd319986-e5ee-49a7-9f59-e8344c066a1a">
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="owl-item active" style="width: 280.984px;" role="region"
+                                                        aria-label="¡Lee aquí nuestras últimas noticias!"
+                                                        data-insuit-uuid="1aab8abf-d89a-43ea-8f63-10c9abd6849d">
+                                                        <div class="item">
+                                                            <div class="card card-carousel-1 border-0"
+                                                                data-a11y-color="white">
+                                                                <div class="card-body pb-4"><a
+                                                                        href="https://www.fcm.org.co/noticias/"
+                                                                        target="_blank" rel="noopener noreferrer"
+                                                                        aria-labelledby="ultimas-noticias-id"
+                                                                        aria-label="¡Lee aquí nuestras últimas noticias!. Ingresa aquí y entérate de los acontecimientos más recientes."
+                                                                        tabindex="-1"
+                                                                        data-insuit-uuid="10b666bc-7b14-47a9-a3b1-4714be8af47a">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8 col-md-6">
+                                                                                <h5 class="text-secondary mb-0 d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="ccd0cbea-6198-4180-a265-e481eee223dd">
+                                                                                    ¡Lee aquí nuestras</h5>
+                                                                                <h5 class="text-secondary mb-0 font-weight-bold d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="ec29c4b8-6510-4a33-afcb-41f10fc9bf74">
+                                                                                    últimas noticias!</h5>
+                                                                                <h5 id="ultimas-noticias-id_i4t1_i4t1"
+                                                                                    class="text-secondary mb-0 d-lg-none d-md-block"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    aria-hidden="true" tabindex="-1"
+                                                                                    data-insuit-uuid="0bf1e579-8628-49e4-a687-bc7770ca0dc1">
+                                                                                    ¡Lee aquí nuestras <span
+                                                                                        class="text-secondary mb-0 font-weight-bold"
+                                                                                        data-orig-font-size="20px"
+                                                                                        data-orig-line-height="24px"
+                                                                                        data-orig-letter-spacing="0"
+                                                                                        data-insuit-uuid="e3c2f488-be0a-4ccd-9588-918e39cfcd8f">últimas
+                                                                                        noticias!</span></h5>
+                                                                                <p class="fs-13 mb-3 mb-lg-0"
+                                                                                    data-orig-font-size="13px"
+                                                                                    data-orig-line-height="19.5px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="0ffd5b61-06b4-4616-a4c3-42779a190316">
+                                                                                    Ingresa aquí y entérate de los
+                                                                                    acontecimientos más recientes. </p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
+                                                                                <img src="img/img-carousel-2.png"
+                                                                                    alt="Lee nuestras últimas noticias."
+                                                                                    class="img-fluid"
+                                                                                    data-insuit-uuid="c039e3b9-c116-411b-b71f-5275fa849eb8">
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="owl-item" style="width: 280.984px;" role="region"
+                                                        aria-hidden="true" tabindex="-1"
+                                                        aria-labelledby="i4t-id-y32p6dmlz"
+                                                        data-insuit-uuid="d5a75628-7908-40e1-b0c8-bebb3e1c5dd9">
+                                                        <div class="item">
+                                                            <div class="card card-carousel-3 border-0"
+                                                                data-a11y-color="white">
+                                                                <div class="card-body pb-4"><a href="javascript:;"
+                                                                        aria-labelledby="consulta-placas"
+                                                                        aria-label="¡Información importante!. Si consultas por placa, se mostrarán las multas asociadas al vehículo independiente del conductor."
+                                                                        tabindex="-1"
+                                                                        data-insuit-uuid="7c9d3b0f-9980-4469-8383-9e5a5eaf55eb">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8 col-md-6 pr-0">
+                                                                                <h5 class="text-secondary mb-2"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    id="i4t-id-y32p6dmlz_i4t1"
+                                                                                    data-insuit-uuid="26926776-dc40-4a17-a033-39e97a422211">
+                                                                                    ¡Información <span
+                                                                                        class="font-weight-bold"
+                                                                                        data-orig-font-size="20px"
+                                                                                        data-orig-line-height="24px"
+                                                                                        data-orig-letter-spacing="0"
+                                                                                        data-insuit-uuid="b31a1216-276f-4b3d-80fc-029b7ef57330">importante!</span>
+                                                                                </h5>
+                                                                                <p id="consulta-placas_i4t1_i4t1"
+                                                                                    class="fs-13 mb-1 mb-lg-0"
+                                                                                    data-orig-font-size="13px"
+                                                                                    data-orig-line-height="19.5px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="b5272414-6afc-4608-8c45-eb022b1ab6bc">
+                                                                                    Si consultas por placa, se mostrarán
+                                                                                    las multas asociadas al vehículo
+                                                                                    independiente del conductor. </p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
+                                                                                <img src="img/img-carousel-8.png"
+                                                                                    alt="Conoce nuestros puntos de pago."
+                                                                                    title="Conoce nuestros puntos de pago."
+                                                                                    class="img-fluid"
+                                                                                    data-insuit-uuid="db3d4bf9-0b26-43c5-a448-526840bc5c14">
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="owl-item cloned" style="width: 280.984px;" role="region"
+                                                        aria-label="¡Simit evoluciona para ti!"
+                                                        data-insuit-uuid="e7aa09e8-b1c2-41af-84f0-df54b83b7926"
+                                                        aria-hidden="true" tabindex="-1">
+                                                        <div class="item">
+                                                            <div class="card card-carousel-1 border-0"
+                                                                data-a11y-color="white">
+                                                                <div class="card-body pb-4">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-8 col-md-6">
+                                                                            <h5 id="contactanos-id_i4t1"
+                                                                                class="text-secondary mb-0"
+                                                                                data-orig-font-size="20px"
+                                                                                data-orig-line-height="24px"
+                                                                                data-orig-letter-spacing="0"
+                                                                                data-insuit-uuid="041b110a-20ce-44c3-bb70-083f779ee028">
+                                                                                ¡Simit evoluciona</h5>
+                                                                            <h5 class="text-secondary font-weight-bold"
+                                                                                data-orig-font-size="20px"
+                                                                                data-orig-line-height="24px"
+                                                                                data-orig-letter-spacing="0"><strong
+                                                                                    class="insuit-b-to-strong"
+                                                                                    data-insuit-uuid="ef6639c9-a7ef-4eec-baac-fc7f6b713d83">para
+                                                                                    ti!</strong></h5>
+                                                                            <p class="fs-13 mb-3 mb-lg-0"
+                                                                                data-orig-font-size="13px"
+                                                                                data-orig-line-height="19.5px"
+                                                                                data-orig-letter-spacing="0"
+                                                                                data-insuit-uuid="6546af4f-4506-452f-af29-bdff120d4719">
+                                                                                Ahora podremos estar siempre en contacto
+                                                                                desde nuestra línea celular <strong
+                                                                                    class="insuit-b-to-strong"
+                                                                                    data-insuit-uuid="c8db703b-48c6-4ae1-8a8d-4f58a5d86870">333-6026800</strong>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div
+                                                                            class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
+                                                                            <img src="simit2/resources/images/img-carousel-1.png"
+                                                                                alt="Diligencia el formulario y te ayudaremos a resolver tus inquietudes."
+                                                                                title="¡Simit evoluciona"
+                                                                                class="img-fluid"
+                                                                                data-insuit-uuid="14be2bc3-b401-44a5-a2b9-5501299d7785">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="owl-item cloned" style="width: 280.984px;" role="region"
+                                                        aria-label="Federación Colombiana de Municipios"
+                                                        data-insuit-uuid="d306b403-dd74-4e50-8e8d-612b7c4d442a"
+                                                        aria-hidden="true" tabindex="-1">
+                                                        <div class="item">
+                                                            <div class="card card-carousel-2 border-0"
+                                                                data-a11y-color="white">
+                                                                <div class="card-body pb-4"><a
+                                                                        href="https://www.fcm.org.co/" target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        aria-labelledby="simit-id"
+                                                                        aria-label="Federación Colombiana de Municipios. Entérate de la labor que ejerce y la importancia de su servicio."
+                                                                        tabindex="-1"
+                                                                        data-insuit-uuid="a95835bc-332a-4544-bea6-afa22ab46d91">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8 col-md-6">
+                                                                                <h5 class="text-secondary mb-0 d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="05d64518-f527-41ef-96b3-6a43fe0a6918">
+                                                                                    Federación Colombiana</h5>
+                                                                                <h5 class="text-secondary mb-0 font-weight-bold d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="28e9818e-5136-48ea-9205-2dff99f02ee1">
+                                                                                    de Municipios</h5>
+                                                                                <h5 id="simit-id_i4t1"
+                                                                                    class="text-secondary mb-0 d-lg-none d-md-block"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    aria-hidden="true" tabindex="-1"
+                                                                                    data-insuit-uuid="a4421ab6-2dc7-4d11-9d42-c38e066666e4">
+                                                                                    Federación Colombiana <span
+                                                                                        class="text-secondary mb-0 font-weight-bold"
+                                                                                        data-orig-font-size="20px"
+                                                                                        data-orig-line-height="24px"
+                                                                                        data-orig-letter-spacing="0"
+                                                                                        data-insuit-uuid="040b56db-1046-4f1f-9a1f-00274ea2b46a">de
+                                                                                        Municipios</span></h5>
+                                                                                <p class="fs-13 mb-3 mb-lg-0"
+                                                                                    data-orig-font-size="13px"
+                                                                                    data-orig-line-height="19.5px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="4f7e0533-02b2-4047-86a2-6708deb99a90">
+                                                                                    Entérate de la labor que ejerce y la
+                                                                                    importancia de su servicio. </p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
+                                                                                <img src="simit2/resources/images/img-carousel-3.png"
+                                                                                    alt="Simit - Federación Colombiana de Municipios"
+                                                                                    title="Simit - Federación Colombiana de Municipios"
+                                                                                    class="img-fluid"
+                                                                                    data-insuit-uuid="6e92f27b-3e16-4b8a-84fd-988bc6c0ff17">
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="owl-item cloned" style="width: 280.984px;" role="region"
+                                                        aria-label="¿Deseas solicitar una PQRSD?"
+                                                        data-insuit-uuid="a5cb9131-cc13-496e-abb8-cfbef0151f4c"
+                                                        aria-hidden="true" tabindex="-1">
+                                                        <div class="item">
+                                                            <div class="card card-carousel-1 border-0"
+                                                                data-a11y-color="white">
+                                                                <div class="card-body pb-4"><a
+                                                                        href="https://pqrsdsimit.fcm.org.co/Publico/IndexWebPQRS.aspx"
+                                                                        target="_blank" rel="noopener noreferrer"
+                                                                        aria-labelledby="pqrds-id"
+                                                                        aria-label="¿Deseas solicitar  una PQRSD?. Descubre la forma en la que podemos solucionar tus inconvenientes."
+                                                                        tabindex="-1"
+                                                                        data-insuit-uuid="d2a8963a-99bc-4157-b367-78fcc94c0331">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-8 col-md-6">
+                                                                                <h5 class="text-secondary mb-0 d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="aad73831-d64a-4e4f-92d6-cc104487bf2c">
+                                                                                    ¿Deseas solicitar</h5>
+                                                                                <h5 class="text-secondary mb-0 font-weight-bold d-lg-block d-md-none d-none"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="eb179894-37e0-431f-825c-c3758e19921c">
+                                                                                    una PQRSD?</h5>
+                                                                                <h5 id="pqrds-id_i4t1_i4t2"
+                                                                                    class="text-secondary mb-0 d-lg-none d-md-block"
+                                                                                    data-orig-font-size="20px"
+                                                                                    data-orig-line-height="24px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    aria-hidden="true" tabindex="-1"
+                                                                                    data-insuit-uuid="c6f00897-6888-4428-a35e-29cb64a1a97e">
+                                                                                    ¿Deseas solicitar <span
+                                                                                        class="text-secondary mb-0 font-weight-bold"
+                                                                                        data-orig-font-size="20px"
+                                                                                        data-orig-line-height="24px"
+                                                                                        data-orig-letter-spacing="0"
+                                                                                        data-insuit-uuid="2b35d5ce-2965-4271-842b-eaaf36781b25">
+                                                                                        una PQRSD?</span></h5>
+                                                                                <p class="fs-13 mb-3 mb-lg-0"
+                                                                                    data-orig-font-size="13px"
+                                                                                    data-orig-line-height="19.5px"
+                                                                                    data-orig-letter-spacing="0"
+                                                                                    data-insuit-uuid="c9bec6e3-0e8e-44ee-8c64-3a2b68eb4a28">
+                                                                                    Descubre la forma en la que podemos
+                                                                                    solucionar tus inconvenientes. </p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
+                                                                                <img src="simit2/resources/images/img-carousel-6.png"
+                                                                                    title="Descubre la forma en la que podemos solucionar tus inconvenientes."
+                                                                                    class="img-fluid"
+                                                                                    alt="Descubre la forma en la que podemos solucionar tus inconvenientes."
+                                                                                    data-insuit-uuid="cfa55b21-0027-4255-836e-d2266bfcb03e">
+                                                                            </div>
+                                                                        </div>
+                                                                    </a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="owl-nav"><button type="button" role="button" class="owl-prev"
+                                                    data-insuit-enter="setTimeout(function(){i4t.find('#initStep8 #carousel-home').append('&lt;span&gt; &lt;/span&gt;').remove()}, 1200); setTimeout(function(){i4t.dispatchIEvent('0');}, 2400);"
+                                                    aria-label="Anterior diapositiva."
+                                                    data-insuit-uuid="0a20ee9c-9a95-4512-9563-ea6387599f52"><span
+                                                        data-insuit-uuid="43ce8541-2600-4527-8056-8c1a2a8aaf51">‹</span></button><button
+                                                    type="button" role="button" class="owl-next"
+                                                    data-insuit-enter="setTimeout(function(){i4t.find('#initStep8 #carousel-home').append('&lt;span&gt; &lt;/span&gt;').remove()}, 1200); setTimeout(function(){i4t.dispatchIEvent('0');}, 2400);"
+                                                    aria-label="Siguiente diapositiva."
+                                                    data-insuit-uuid="3219ce26-74d7-453a-bd30-c57050c50c32"><span
+                                                        data-insuit-uuid="f60f1705-a2a3-4bac-b254-82f0ce31f818">›</span></button>
+                                            </div>
+                                            <div class="owl-dots" data-insuit-top="-30px" role="navigation"
+                                                data-insuit-height="+20px" aria-label="Paginación."
+                                                data-insuit-uuid="84084014-b64a-4181-a01d-cd84cfe5a55f"><button
+                                                    role="button" class="owl-dot" aria-label="Ir a la diapositiva. 1"
+                                                    data-insuit-enter="setTimeout(function(){i4t.find('#initStep8 #carousel-home').append('&lt;span&gt; &lt;/span&gt;').remove()}, 1200); setTimeout(function(){i4t.dispatchIEvent('.');}, 3000);"
+                                                    data-insuit-uuid="be1d1d4f-fa27-4979-b2e1-b8017b8dca08"><span></span></button><button
+                                                    role="button" class="owl-dot" aria-label="Ir a la diapositiva. 2"
+                                                    data-insuit-enter="setTimeout(function(){i4t.find('#initStep8 #carousel-home').append('&lt;span&gt; &lt;/span&gt;').remove()}, 1200); setTimeout(function(){i4t.dispatchIEvent('.');}, 3000);"
+                                                    data-insuit-uuid="4d40903a-b79a-4079-b11c-bb4b307979ab"><span></span></button><button
+                                                    role="button" class="owl-dot" aria-label="Ir a la diapositiva. 3"
+                                                    data-insuit-enter="setTimeout(function(){i4t.find('#initStep8 #carousel-home').append('&lt;span&gt; &lt;/span&gt;').remove()}, 1200); setTimeout(function(){i4t.dispatchIEvent('.');}, 3000);"
+                                                    data-insuit-uuid="60bdaee6-dd21-4edb-8471-3e8e70c9448d"><span></span></button><button
+                                                    role="button" class="owl-dot active"
+                                                    aria-label="Ir a la diapositiva. 4"
+                                                    data-insuit-enter="setTimeout(function(){i4t.find('#initStep8 #carousel-home').append('&lt;span&gt; &lt;/span&gt;').remove()}, 1200); setTimeout(function(){i4t.dispatchIEvent('.');}, 3000);"
+                                                    data-insuit-uuid="ee2d64b9-bed3-4041-8a67-babb4851987e"><span></span></button><button
+                                                    role="button" class="owl-dot" aria-label="Ir a la diapositiva. 5"
+                                                    data-insuit-enter="setTimeout(function(){i4t.find('#initStep8 #carousel-home').append('&lt;span&gt; &lt;/span&gt;').remove()}, 1200); setTimeout(function(){i4t.dispatchIEvent('.');}, 3000);"
+                                                    data-insuit-uuid="e1f9a226-78b9-479d-9320-93e25a88305c"><span></span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="navigation" aria-label="Información de interés"
+                                        class="col-lg-4 col-md-12 col-12 mt-lg-0 mt-2"
+                                        data-insuit-uuid="a00796cf-d310-4061-a874-845a531ea8cd">
+                                        <div class="card card-info border-0 box-shadow-sm h-100"
+                                            data-a11y-color="white">
+                                            <div class="card-body py-2 px-0"><a
+                                                    href="https://www.fcm.org.co/simit/#/puntos-pago" target="_self"
+                                                    aria-labelledby="puntos-pago-card-id" class="d-block py-2 py-sm-0"
+                                                    aria-label="Puntos de pago Nuevo Conoce nuestros puntos de pago más cercanos." data-insuit-click="setTimeout(function(){window.location.reload();}, 1000);"
+                                                    data-insuit-uuid="53033450-ad64-433b-a7f7-d07c886ef179">
+                                                    <div
+                                                        class="d-flex justify-content-between align-items-center border-bottom p-2">
+                                                        <div>
+                                                            <div class="d-flex justify-content-start">
+                                                                <h6 id="puntos-pago-card-id"
+                                                                    class="text-secondary font-weight-bold mb-0"
+                                                                    data-orig-font-size="16px"
+                                                                    data-orig-line-height="19.2px"
+                                                                    data-orig-letter-spacing="0"
+                                                                    data-insuit-uuid="67c19acc-716a-4a14-b3da-17a8ed670939">
+                                                                    Puntos de pago</h6> <span
+                                                                    class="badge badge-pill badge-secondary ml-2"
+                                                                    data-orig-font-size="12px"
+                                                                    data-orig-line-height="12px"
+                                                                    data-orig-letter-spacing="0"
+                                                                    data-insuit-uuid="5f5987ed-0b01-40b2-a8da-72ae903980e4">Nuevo</span>
+                                                            </div>
+                                                            <p class="mb-0 fs-13" data-orig-font-size="13px"
+                                                                data-orig-line-height="19.5px"
+                                                                data-orig-letter-spacing="0"
+                                                                data-insuit-uuid="e315355f-a7c3-45a9-b5fa-ccef0eb794d8">
+                                                                Conoce nuestros puntos de pago más cercanos.</p>
+                                                        </div>
+                                                        <div><em class="bx bxs-chevron-right text-primary fs-17 font-weight-bold"
+                                                                ></em></div>
+                                                    </div>
+                                                </a> <a href="#" data-toggle="modal" data-target="#modal-paz-salvo"
+                                                    aria-labelledby="solicitar-paz-salvo-id"
+                                                    class="d-block pointer py-2 py-sm-0" aria-label="Solicitar paz y salvo Nuevo Haz clic aquí para generar tu paz y salvo" data-insuit-click="setTimeout(function(){i4t.find('div#modal-paz-salvo').append('&lt;span&gt; &lt;/span&gt;').remove();}, 3000);"
+                                                    data-insuit-uuid="b0df3266-adfc-4eca-949a-811e27dd3f47">
+                                                    <div
+                                                        class="d-flex justify-content-between align-items-center border-bottom px-2 py-2 home-solicitar-paz-salvo">
+                                                        <div class="home-solicitar-paz-salvo">
+                                                            <div
+                                                                class="d-flex justify-content-start home-solicitar-paz-salvo">
+                                                                <h6 id="solicitar-paz-salvo-id"
+                                                                    class="text-secondary font-weight-bold mb-0 home-solicitar-paz-salvo"
+                                                                    data-orig-font-size="16px"
+                                                                    data-orig-line-height="19.2px"
+                                                                    data-orig-letter-spacing="0"
+                                                                    data-insuit-uuid="32ed60a5-5f59-46ab-bcc4-99d872622af7">
+                                                                    Solicitar paz y salvo</h6> <span
+                                                                    class="badge badge-pill badge-secondary ml-2 home-solicitar-paz-salvo"
+                                                                    data-orig-font-size="12px"
+                                                                    data-orig-line-height="12px"
+                                                                    data-orig-letter-spacing="0"
+                                                                    data-insuit-uuid="03791595-e3f8-4cfe-b67f-dbeb96e5e35e">Nuevo</span>
+                                                            </div>
+                                                            <p class="mb-0 fs-13 home-solicitar-paz-salvo"
+                                                                data-orig-font-size="13px"
+                                                                data-orig-line-height="19.5px"
+                                                                data-orig-letter-spacing="0"
+                                                                data-insuit-uuid="3a26a8b7-d1cf-47d5-b7c6-1ff66c684712">
+                                                                Haz clic aquí para generar tu paz y salvo</p>
+                                                        </div>
+                                                        <div class="home-solicitar-paz-salvo"><em
+                                                                class="bx bxs-chevron-right text-primary fs-17 font-weight-bold home-solicitar-paz-salvo"
+                                                                ></em></div>
+                                                    </div>
+                                                </a> <a href="https://www.fcm.org.co/preguntas-frecuentes-simit/"
+                                                    target="_blank" rel="noopener noreferrer"
+                                                    aria-labelledby="preguntas-frecuentes-id"
+                                                    class="d-block py-2 py-sm-0" aria-label="Preguntas frecuentes Resuelve tus dudas e inquietudes aquí" data-insuit-uuid="fbb4ce8c-58e2-4c3d-8ee5-f3cb31f960cb">
+                                                    <div
+                                                        class="d-flex justify-content-between align-items-center px-2 py-2">
+                                                        <div>
+                                                            <h6 id="preguntas-frecuentes-id"
+                                                                class="text-secondary font-weight-bold mb-0"
+                                                                data-orig-font-size="16px"
+                                                                data-orig-line-height="19.2px"
+                                                                data-orig-letter-spacing="0"
+                                                                data-insuit-uuid="4ddd2873-8810-4000-90b6-11e805ea39ee">
+                                                                Preguntas frecuentes</h6>
+                                                            <p class="mb-0 fs-13" data-orig-font-size="13px"
+                                                                data-orig-line-height="19.5px"
+                                                                data-orig-letter-spacing="0"
+                                                                data-insuit-uuid="ae788eab-f1be-43be-bb13-47b30402f7ee">
+                                                                Resuelve tus dudas e inquietudes aquí</p>
+                                                        </div>
+                                                        <div><em class="bx bxs-chevron-right text-primary fs-17 font-weight-bold"
+                                                                ></em></div>
+                                                    </div>
+                                                </a></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12 col-12 mt-lg-0 mt-3">
+                                        <div role="region" aria-label="Puntos de pago."
+                                            class="card card-info-videos border-0 box-shadow-sm d-block h-100"
+                                            data-a11y-color="white"
+                                            data-insuit-uuid="4393d0a1-7cfc-4b4f-8ca1-eb08d806eb22">
+                                            <div class="card-body pt-0 pb-07rem px-0 puntos__card">
+                                                <div class="row mx-0 w-100" >
+                                                    <div class="w-100" ><img src="img/img-puntos-pago.png"
+                                                            alt="Mapa de la ciudad con pines para ubicación de puntos de pago"
+                                                            title="Mapa de la ciudad con pines para ubicación de puntos de pago"
+                                                            class="img-fluid w-100"
+                                                            data-insuit-uuid="72e811b2-4d80-4f89-8219-6657b5dcba15">
+                                                    </div>
+                                                </div>
+                                                <div class="row px-2 py-2 py-lg-0">
+                                                    <h5 class="mb-0 text-secondary col-md-12 pt-md-3 pb-md-2"
+                                                        data-orig-font-size="20px" data-orig-line-height="24px"
+                                                        data-orig-letter-spacing="0"
+                                                        data-insuit-uuid="509d5d33-ae68-46ba-8797-506c6b996f75">Puntos
+                                                        <strong class="insuit-b-to-strong"
+                                                            data-insuit-uuid="91a5f322-4c41-4a85-9a67-776b6065e08b">de
+                                                            pago</strong>
+                                                    </h5>
+                                                </div>
+                                                <div class="row px-2">
+                                                    <p class="mb-0 fs-13 col-md-7" data-orig-font-size="13px"
+                                                        data-orig-line-height="19.5px" data-orig-letter-spacing="0"
+                                                        data-insuit-uuid="eb91d3e7-1ee7-4fdf-a65c-91765d90fc1c">Realiza
+                                                        el pago de tus multas en más de <strong
+                                                            class="insuit-b-to-strong"
+                                                            data-insuit-uuid="3a003d5a-0aab-481e-acea-933e98ecfcb1">8.000</strong>
+                                                        puntos de pago.</p>
+                                                    <div class="col-md-5 mt-lg-0 mt-2 text-center">
+                                                        <div class=" mx-md-auto"><a
+                                                                href="https://www.fcm.org.co/simit/#/puntos-pago"
+                                                                target="_self"
+                                                                data-insuit-click="setTimeout(function(){window.location.reload();}, 1000);"
+                                                                data-insuit-uuid="e80a945f-109f-4b8c-bef1-97caf756c871"><button
+                                                                    type="button" role="button"
+                                                                    class="btn btn-outline-primary btn-block py-1"
+                                                                    data-a11y-color="white" data-orig-font-size="16px"
+                                                                    data-orig-line-height="24px"
+                                                                    data-orig-letter-spacing="0"
+                                                                    data-insuit-uuid="11e4062e-b1b5-45ce-a2d8-a1fcd7ccd761">¿Dónde
+                                                                    pagar?</button></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="modal-paz-salvo" tabindex="-1" aria-labelledby="modal-paz-salvo" aria-hidden="true"
+                                class="modal fade" role="region" aria-live="assertive"
+                                data-insuit-back="i4t(this).find('.modal-header &gt; button.close').dispatchEvent('click');"
+                                data-insuit-enter="setTimeout(function(){i4t.find('a[data-target=&quot;#modal-paz-salvo&quot;]').dispatchEvent('click');}, 2000);"
+                                data-insuit-uuid="f321c756-47e7-4af8-992e-f76c113f0230">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content" data-a11y-color="white">
+                                        <div class="modal-header modal-main-header py-2">
+                                            <h5 id="modal-paz-salvo_i4t1" class="modal-title" data-orig-font-size="20px"
+                                                data-orig-line-height="30px" data-orig-letter-spacing="0"
+                                                data-insuit-uuid="486cf736-540c-441e-99d0-8d4277ff2ef3">Solicitar paz y
+                                                salvo </h5> <button type="button" data-dismiss="modal"
+                                                aria-label="Cerrar." class="close text-secondary"
+                                                data-orig-font-size="24px" data-orig-line-height="24px"
+                                                data-orig-letter-spacing="0" role="button"
+                                                data-insuit-enter="i4t(this).dispatchEvent('click'); i4t.dispatchIEvent('.');"
+                                                tabindex="-1"
+                                                data-insuit-uuid="33210916-4649-407a-baea-f402386bd4c2"><span
+                                                    aria-hidden="true" data-orig-font-size="24px"
+                                                    data-orig-line-height="24px" data-orig-letter-spacing="0"
+                                                    data-insuit-uuid="8df7f6d7-c201-48b4-84ad-47861733a3fe">×</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="formPazSalvo" aria-label="Formulario paz y salvo" data-step="2"
+                                                novalidate="novalidate">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group group-paz-salvo"><label for="tipoDoc"
+                                                                class="font-weight-medium fs-14"
+                                                                data-orig-font-size="14px" data-orig-line-height="21px"
+                                                                data-orig-letter-spacing="0"
+                                                                data-insuit-uuid="45fe516a-bf85-459c-915c-bb9edd75a1ee">Tipo
+                                                                y número de documento</label>
+                                                            <div class="input-group"><select id="tipoDoc"
+                                                                    class="form-control form-control-sm px-1"
+                                                                    data-a11y-color="white" aria-expanded="false"
+                                                                    aria-haspopup="listbox" tabindex="-1"
+                                                                    data-insuit-uuid="2656e5a0-164c-4abc-a5a1-f4bfee904f10"></select>
+                                                                <div class="input-group-append"><input type="text"
+                                                                        id="txtNumeroDocumento"
+                                                                        name="txtNumeroDocumento"
+                                                                        placeholder="ej. 1234567890"
+                                                                        class="form-control form-control-sm"
+                                                                        data-a11y-color="white"
+                                                                        aria-label="Número de documento." tabindex="-1"
+                                                                        data-insuit-uuid="11d522a2-8a84-43ed-b1be-6cafcaf23570">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group"><label for="txtEmailUno"
+                                                                class="font-weight-medium fs-14"
+                                                                data-orig-font-size="14px" data-orig-line-height="21px"
+                                                                data-orig-letter-spacing="0"
+                                                                data-insuit-uuid="08bc76b8-0d20-41ea-a7e8-0cdcd8a6252c">Correo
+                                                                electrónico</label> <input id="txtEmailUno"
+                                                                name="txtEmailUno" type="text"
+                                                                placeholder="ej. usuario@ejemplo.com"
+                                                                class="form-control form-control-sm"
+                                                                data-a11y-color="white"
+                                                                aria-label="ej. usuario@ejemplo.com" tabindex="-1"
+                                                                data-insuit-uuid="91968c67-5cd3-4f30-8432-56db6a453d8e">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 text-center fs-14 mt-md-3 mt-4"
+                                                        data-insuit-uuid="0ebbc67d-38fa-4868-8d6c-69924295f2b0">
+                                                        Al enviar esta información estás de acuerdo con nuestras <a
+                                                            href="https://www.fcm.org.co/politica-de-datos/"
+                                                            target="_blank" rel="noopener noreferrer" role="button"
+                                                            class="text-primary" tabindex="-1"
+                                                            data-insuit-uuid="d0166a63-fa30-4341-810a-c88a9ef797ba"><span
+                                                                class="insuit-u"
+                                                                data-insuit-uuid="29a17445-8ade-42c6-a5a2-53cdd78b6f5c">Política
+                                                                de datos</span></a></div>
+                                                </div>
+                                                <div class="row justify-content-center mb-2 mt-3">
+                                                    <div class="col-md-4 pr-lg-0 pr-3 mt-md-0 mt-3 order-md-1 order-2">
+                                                        <button data-dismiss="modal"
+                                                            class="btn btn-outline-primary py-1 btn-block home-solicitar-paz-salvo"
+                                                            data-a11y-color="white" data-orig-font-size="16px"
+                                                            data-orig-line-height="24px" data-orig-letter-spacing="0"
+                                                            role="button"
+                                                            data-insuit-enter="i4t(this).dispatchEvent('click'); i4t.dispatchIEvent('.');"
+                                                            tabindex="-1"
+                                                            data-insuit-uuid="4884e59b-fdaa-4671-888c-4356ce79cee8">Cancelar</button>
+                                                    </div>
+                                                    <div class="col-md-4 mt-lg-0 order-md-2 order-1"><button
+                                                            type="submit"
+                                                            class="btn btn-primary py-1 btn-block home-solicitar-paz-salvo"
+                                                            data-orig-font-size="16px" data-orig-line-height="24px"
+                                                            data-orig-letter-spacing="0" role="button"
+                                                            data-insuit-enter="i4t(this).dispatchEvent('click'); i4t.dispatchIEvent('.');"
+                                                            tabindex="-1"
+                                                            data-insuit-uuid="45ac2cfd-ac1e-4180-b328-fb4274bd76da">Continuar</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- end master view -->
+<h2>Consulta Multas</h2>
+
+
+  <table border="1" id="tabla" style="margin-top:20px">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+                    <!-- footer -->
+                    <div>
+                        <footer aria-label="Pie de página." role="contentinfo"
+                            data-insuit-uuid="b246c09f-6661-49f1-84db-fd7c4b153526">
+                            <div class="container-fluid px-0 mt-5">
+                                <div class="row footer">
+                                    <div class="col-md-4 col-12 pl-lg-4" role="region"
+                                        aria-labelledby="i4t-id-qmxtf4v6v"
+                                        data-insuit-uuid="8fb5cdc8-0fdd-4533-ac59-16f582323f4e">
+                                        <h6 data-orig-font-size="15px" data-orig-line-height="18px"
+                                            data-orig-letter-spacing="0" id="i4t-id-qmxtf4v6v"
+                                            data-insuit-uuid="f8f9d87d-10f3-48f6-905e-66f2e7ede932">Federación
+                                            Colombiana de Municipios <br> Dirección Nacional Simit</h6>
+                                        <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                            data-orig-letter-spacing="0"
+                                            data-insuit-uuid="0a8f3ca9-9497-42c6-b894-36668c2dd54a"><strong
+                                                data-insuit-uuid="0c59ba99-d23b-40e6-aecf-1e4eeca81f78">Sede
+                                                Principal:</strong> Cra. 7# 74B-56 Piso 10</p>
+                                        <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                            data-orig-letter-spacing="0"
+                                            data-insuit-uuid="250eaf1a-a00a-40ca-b00f-ddee7cc7e3c3"><strong
+                                                data-insuit-uuid="7156f73a-a6f4-464e-83f2-ac39a2a642a5">Sede
+                                                Administrativa y Financiera:</strong> Cra. 7# 74B-56 Piso 10</p>
+                                        <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                            data-orig-letter-spacing="0"
+                                            data-insuit-uuid="1558f4ad-6938-4f50-bd54-d7896eeeb5e0"><strong
+                                                data-insuit-uuid="f5d9fa6d-6e9d-4f9a-9680-7fbc6cacc547">Código
+                                                postal:</strong> 110221</p>
+                                        <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                            data-orig-letter-spacing="0"
+                                            data-insuit-uuid="f8310d23-a33b-472f-9776-af14a6a3d35f"><strong
+                                                data-insuit-uuid="7528484a-197b-4aa4-ae9e-81a7404a5499">Horario de
+                                                atención:</strong> Lunes a viernes de 8:00 a. m. a 5:00 p. m.</p>
+                                        <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                            data-orig-letter-spacing="0"><strong
+                                                data-insuit-uuid="de034fcb-9fde-40b5-a978-ee134194eabb">PBX</strong> <a
+                                                role="button" href="tel:+576015934020"
+                                                data-insuit-uuid="d472c208-4ca7-489b-96d0-1f03f23a58e3">(+57) 601 593 40
+                                                20</a></p>
+                                        <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                            data-orig-letter-spacing="0"
+                                            data-insuit-uuid="bc225e73-d5d9-4ff2-a14a-16a319ff200b"><strong
+                                                data-insuit-uuid="d01a6561-8b36-4dc1-910b-64a8c510ad3b">Correo
+                                                electrónico</strong> contactosimit@fcm.org.co </p>
+                                        <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                            data-orig-letter-spacing="0"
+                                            data-insuit-uuid="4d498cf9-face-4ea6-890b-e2468299d573">Bogotá - Colombia
+                                        </p>
+                                        <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                            data-orig-letter-spacing="0"
+                                            data-insuit-uuid="1a95e8b0-7504-4096-8992-30f0b928da2a"><strong
+                                                data-insuit-uuid="0a4c450f-da8e-49ec-a21c-bca15a6bfbe1">NIT:</strong>
+                                            800082665-0</p>
+                                    </div>
+                                    <div class="col-md-4 col-12">
+                                        <div class="i4t-include-titleH6" role="region"
+                                            aria-labelledby="i4t-id-6p8saddc7" style="display: grid;"
+                                            data-insuit-uuid="bbb34bc8-c0f4-4166-842d-b5ef1cff40a0">
+                                            <h6 class="mt-lg-0 mt-md-0 mt-4 titleH6-0 i4t-reference-include"
+                                                data-orig-font-size="15px" data-orig-line-height="18px"
+                                                data-orig-letter-spacing="0" id="i4t-id-6p8saddc7"
+                                                data-insuit-uuid="53cbc378-38b1-40d4-a810-cf6b6c36e07c">Recibo de
+                                                correspondencia</h6>
+                                            <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                                data-orig-letter-spacing="0"
+                                                data-insuit-uuid="653c104c-4b52-4d6d-9b46-7155ec6505cf"><strong
+                                                    data-insuit-uuid="aaa4470a-d6b8-44b5-a5ba-b823cceaf1e5">Dirección</strong>
+                                                Cra. 7# 74B-56 Piso 10, Bogotá D.C. Colombia</p>
+                                            <p class="mb-3" data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                                data-orig-letter-spacing="0"
+                                                data-insuit-uuid="4170b141-833c-468b-929b-626756e89fb1"><strong
+                                                    data-insuit-uuid="8a6d2741-4088-4bc2-b935-72ecdc1e438f">Horario de
+                                                    atención:</strong> Lunes a viernes de 8:00 a. m. a 5:00 p. m.</p>
+                                        </div>
+                                        <div class="i4t-include-titleH6" role="region"
+                                            aria-labelledby="i4t-id-mollndofg" style="display: grid;"
+                                            data-insuit-uuid="12779449-b3d6-45d9-9df6-acad9d2d0a2c">
+                                            <h6 class="mt-4 titleH6-1 i4t-reference-include" data-orig-font-size="15px"
+                                                data-orig-line-height="18px" data-orig-letter-spacing="0"
+                                                id="i4t-id-mollndofg"
+                                                data-insuit-uuid="d5cfbea0-25f2-4e80-ab08-824e0463cbb1">Notificaciones
+                                                Judiciales</h6>
+                                            <p class="mb-3" data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                                data-orig-letter-spacing="0"><a role="button"
+                                                    href="mailto:contactosimit@fcm.org.co"
+                                                    data-insuit-uuid="106ef4ff-042f-473d-bc17-fd2964a8bae9">contactosimit@fcm.org.co</a>
+                                            </p>
+                                        </div>
+                                        <div class="i4t-include-titleH6" role="region"
+                                            aria-labelledby="i4t-id-km4ttjoju" style="display: grid;"
+                                            data-insuit-uuid="c7dd2216-2d7f-4c04-8848-261df3fa63dc">
+                                            <h6 class="mt-4 titleH6-2 i4t-reference-include" data-orig-font-size="15px"
+                                                data-orig-line-height="18px" data-orig-letter-spacing="0"
+                                                id="i4t-id-km4ttjoju"
+                                                data-insuit-uuid="75681a72-534d-4fe4-be04-c35e2898aa99">PQRSD</h6>
+                                            <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                                data-orig-letter-spacing="0"><a role="button"
+                                                    href="mailto:contactosimit@fcm.org.co"
+                                                    data-insuit-uuid="07c4b2b6-598c-4eec-b1de-0340f4b2ee84">contactosimit@fcm.org.co</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-12">
+                                        <div id="i4t-redes" role="navigation" aria-label="Redes sociales."
+                                            data-insuit-uuid="3d987e29-61e9-4b30-8bbf-50af1b4fcd3c">
+                                            <h6 class="mt-lg-0 mt-md-0 mt-4" data-orig-font-size="15px"
+                                                data-orig-line-height="18px" data-orig-letter-spacing="0"
+                                                data-insuit-uuid="7d12ecc5-d9e4-4962-afcb-086d1e6db78c">Síguenos en</h6>
+                                            <div class="d-flex align-items-center mt-md-0 mt-2"><a role="button"
+                                                    aria-label="Instagram Federación Colombia de Municipios"
+                                                    href="https://www.instagram.com/fedemunicipios/" target="_blank"
+                                                    rel="noopener noreferrer" class="redes-footer instagram"
+                                                    data-insuit-uuid="3d66af58-488d-4a51-bcf0-17d813163f41"></a> <a
+                                                    role="button" aria-label="Twitter."
+                                                    href="https://twitter.com/simitresponde" target="_blank"
+                                                    rel="noopener noreferrer" class="redes-footer twitter"
+                                                    data-insuit-uuid="dd6b84d9-92b7-4bf6-a0d1-c85a801b8a1c"></a> <a
+                                                    role="button"
+                                                    aria-label="Facebook Federación Colombia de Municipios"
+                                                    href="https://www.facebook.com/FederacionColombianadeMunicipios/"
+                                                    target="_blank" rel="noopener noreferrer"
+                                                    class="redes-footer facebook"
+                                                    data-insuit-uuid="0751b42b-deb2-4e5e-a7a5-451537f1fb6c"></a> <a
+                                                    role="button" aria-label="Youtube Federación Colombia de Municipios"
+                                                    href="https://www.youtube.com/user/fedemunicipios" target="_blank"
+                                                    rel="noopener noreferrer" class="redes-footer youtube"
+                                                    data-insuit-uuid="f18753e6-ff9c-446c-adfb-88a82f487e1c"></a></div>
+                                        </div>
+                                        <div class="mt-4" role="region" aria-labelledby="i4t-id-ecbfrva9a"
+                                            data-insuit-uuid="63233e49-9fa3-4c14-be28-b201f316c23c">
+                                            <h6 class="mb-2" data-orig-font-size="15px" data-orig-line-height="18px"
+                                                data-orig-letter-spacing="0" id="i4t-id-ecbfrva9a"
+                                                data-insuit-uuid="dac65d53-dc36-4810-9709-59dcddddf614">Contáctanos</h6>
+                                            <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                                data-orig-letter-spacing="0"><a role="button" href="tel:573336026800"
+                                                    title="Línea celular (+57) 333 602 68 00: 573336026800"
+                                                    data-insuit-uuid="5907b645-31c9-479f-9495-d15ec8a28b62">Línea
+                                                    celular (+57) 333 602 68 00</a></p>
+                                            <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                                data-orig-letter-spacing="0"
+                                                data-insuit-uuid="4340aa1f-a166-4877-875b-ff16a0a26850"><a role="button"
+                                                    href="tel:018000413588"
+                                                    data-insuit-uuid="7ce1af92-d3d5-4de9-8b6d-828e3bafcd2b">Línea
+                                                    gratuita: 01 8000 413 588</a> | <a role="button"
+                                                    href="tel:576015934026"
+                                                    data-insuit-uuid="865155dd-485d-458d-a368-25029fa39402">Línea
+                                                    Bogotá: (+57) 601 593 40 26</a></p>
+                                        </div>
+                                        <p class="mb-1 mt-4" data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                            data-orig-letter-spacing="0"
+                                            data-insuit-uuid="21c43168-cd47-47b3-821b-572d63dd92ec">La información
+                                            contenida en el sistema es generada y reportada por los organismos de
+                                            tránsito.</p>
+                                        <p class="mt-lg-0 mt-2 mb-0" data-orig-font-size="13px"
+                                            data-orig-line-height="19.5px" data-orig-letter-spacing="0"
+                                            role="navigation"
+                                            aria-label="Política de datos | Mapa del sitio | Consorcio Sonitt"
+                                            data-insuit-uuid="f2378667-d261-4879-8228-d39e23dafffa"><a
+                                                href="https://www.fcm.org.co/politica-de-datos/" target="_blank"
+                                                rel="noopener noreferrer" role="button"
+                                                data-insuit-uuid="5c3c790b-8e06-4e57-8a64-6cd5372a1094"><span
+                                                    class="insuit-u"
+                                                    data-insuit-uuid="e6ae54c4-1c71-4901-b444-def66c18d096">Política de
+                                                    datos</span></a> | <a href="https://www.fcm.org.co/mapa-del-sitio/"
+                                                target="_blank" rel="noopener noreferrer" role="button"
+                                                data-insuit-uuid="8516d766-2d7d-466c-8819-e71e9db52137"><span
+                                                    class="insuit-u"
+                                                    data-insuit-uuid="09e52755-9407-444e-9cc6-3ee8904f0e28">Mapa del
+                                                    sitio</span></a> | Consorcio Sonitt</p>
+                                        <p data-orig-font-size="13px" data-orig-line-height="19.5px"
+                                            data-orig-letter-spacing="0" role="navigation"
+                                            aria-label="Pague seguro a través de:  | "
+                                            data-insuit-uuid="e1e9965e-b53e-4554-88ed-bd83c71d3ab5">Pague seguro a
+                                            través de:
+                                            <span data-orig-font-size="12px" data-orig-line-height="18px"
+                                                data-orig-letter-spacing="0"
+                                                data-insuit-uuid="741e5a4b-2f96-4f54-8aa8-519c7664e9ff"><a role="button"
+                                                    href="https://www.placetopay.com/web/home" target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    data-insuit-uuid="6a3c36a4-6d2e-4953-b2aa-d8f83297e72f"><img
+                                                        src="placetopay-logo.svg" alt="Place to Pay"
+                                                        title="Place to Pay" class="logo_p2p"
+                                                        data-insuit-uuid="0308aff0-9650-4266-801a-9e4a10e66577"></a> |
+                                                <a role="button" href="https://www.pse.com.co/" target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    data-insuit-uuid="82f8cd02-e9ae-4199-b219-0b34313efea5"><img
+                                                        src="img/pse.png" alt="PSE" title="PSE"
+                                                        data-insuit-uuid="5f506d30-eb9f-4a75-9097-1bb810e879ee"></a></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                    <!-- end footer -->
+                </div>
+            </div>
+        </div>
+    </div>
+ <div id="loader" class="loader-overlay">
+  <div class="simit-spinner"></div>
+</div>
+ <script>
+    async function consultar() {
+
+      const placa = document.getElementById("placa").value;
+
+      const res = await fetch(`/consulta?placa=${placa}`);
+      const json = await res.json();
+
+      console.log("DATA:", json);
+
+      if (!json.success) {
+        alert("Error en consulta");
+        return;
+      }
+
+      const multas = json.data.multas || [];
+
+      if (multas.length === 0) {
+        alert("No hay multas");
+        return;
+      }
+
+      const tablaHead = document.querySelector("#tabla thead");
+      const tablaBody = document.querySelector("#tabla tbody");
+
+      tablaHead.innerHTML = "";
+      tablaBody.innerHTML = "";
+
+      const headers = ["numeroComparendo", "departamento", "valorPagar", "estadoComparendo", "fechaComparendo"];
+
+
+      tablaHead.innerHTML =
+        "<tr>" + headers.map(h => `<th>${h}</th>`).join("") + "</tr>";
+
+      multas.forEach(m => {
+        tablaBody.innerHTML +=
+          "<tr>" +
+          headers.map(h => `<td>${m[h]}</td>`).join("") +
+          "</tr>";
+      });
+    }
+  </script>
+
+ 
+
+</body>
+
+</html>

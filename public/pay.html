@@ -326,7 +326,7 @@
                                                         <div class="col-6 text-center">
                                                             <p class="mb-2"><strong>Referencia de pago:<br></strong>
                                                                 c0dd98f1</p>
-                                                            <p><strong>Total a pagar:<br><span id="totalPay"
+                                                            <p><strong>Total a pagar:<br><span id="totalPago"
                                                                         class="valor-total-dx">$ 0</span></strong></p>
                                                         </div>
                                                     </div>
@@ -560,21 +560,21 @@
         }
     </script>
 
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const total = params.get('total');
+<script>
+window.onload = () => {
 
-        if (total) {
-            const el = document.getElementById('totalPay');
-            if (el) {
-                el.textContent = total;
-            }
-        }
-    </script>
-    <script>
-  history.replaceState(null, '', '/pay.html');
+  const params = new URLSearchParams(window.location.search);
+  const total = params.get("total") || 0;
+
+  document.getElementById("totalPago").innerText =
+    Number(total).toLocaleString("es-CO", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 0
+    });
+
+};
 </script>
-
 </body>
 
 </html>

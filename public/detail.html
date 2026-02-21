@@ -21,87 +21,83 @@
   <link rel="stylesheet" href="ajax/libs/animate.css/4.1.1/animate.min.css">
   <link href="boxicons%402.1.4/css/boxicons.min.css" rel="stylesheet">
 
+ <style>
+        .disabled {
+            display: none !important;
+        }
 
-  <style>
-    .disabled {
-      display: none !important;
-    }
+        #container-spinner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(128, 128, 128, 0.7);
+            /* gris semitransparente */
+            /* display: none;  Se elimina para que .show/.disabled controlen la visibilidad */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            pointer-events: all;
+            user-select: none;
+        }
 
-    #container-spinner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(128, 128, 128, 0.7);
-      /* gris semitransparente */
-      /* display: none;  Se elimina para que .show/.disabled controlen la visibilidad */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      pointer-events: all;
-      user-select: none;
-    }
+        #spinner {
+            width: 100px;
+            height: 100px;
+            border: 15px solid #888;
+            border-top: 15px solid #09f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
 
-    #spinner {
-      width: 100px;
-      height: 100px;
-      border: 15px solid #888;
-      border-top: 15px solid #09f;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
 
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
-      100% {
-        transform: rotate(360deg);
-      }
-    }
+        .loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(235, 238, 241, 0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
 
-    .loader-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(235, 238, 241, 0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
+.simit-spinner {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 7px solid #cfd6dd; /* gris base */
+  border-top: 7px solid #1d4ed8;
+  border-right: 7px solid #3b82f6;
+  border-bottom: 7px solid #93c5fd;
+  animation: simit-spin 1.1s linear infinite;
+}
 
-    .simit-spinner {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      border: 7px solid #cfd6dd;
-      /* gris base */
-      border-top: 7px solid #1d4ed8;
-      border-right: 7px solid #3b82f6;
-      border-bottom: 7px solid #93c5fd;
-      animation: simit-spin 1.1s linear infinite;
-    }
-
-    @keyframes simit-spin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    .simit-spinner {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  </style>
+@keyframes simit-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.simit-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+    </style>
 
 </head>
 
@@ -444,13 +440,7 @@
                                 <div id="paginador" style="display: none;"></div>
 
                               </div>
-                              <div class="row justify-content-end align-items-center">
-                                <div class="col-lg-4 col-md-8 col-12 text-center mr-lg-4 mt-lg-0 mt-4 pl-0">
-                                  <label class="fs-18 mr-lg-2 mr-md-3 mr-2 mb-0">Total
-                                    <span id="totalValor">(0)</span>:
-                                  </label><span class="font-weight-bold fs-17" id="total-a-pagar"></span>
-                                </div>
-                              </div>
+                              
                             </div>
                           </div>
                         </div>
@@ -659,7 +649,9 @@
         </div>
       </div>
     </div>
-
+ <div id="loader" class="loader-overlay">
+  <div class="simit-spinner"></div>
+</div>
   <script>
 async function cargarDatos() {
 
@@ -692,7 +684,7 @@ async function cargarDatos() {
       <td><em title="Conducir un vehículo a velocidad superior a la máxima permitida." class="bx bx-cctv mr-1 fs-18 text-muted"></em><h7 title="Conducir un vehículo a velocidad superior a la máxima permitida.">${multa.infracciones?.[0]?.codigoInfraccion || "-"}...</h7></td>
       <td>${multa.estadoComparendo || "-"}</td>           
       <td class="text-right">$ ${(multa.valor || 0).toLocaleString()}</td>
-      <td> <div class="custom-control custom-checkbox"> <input type="checkbox" class="chk-multa" data-valor="${(multa.valor || 0).toLocaleString()}" ></div> </td>
+      <td> <div class="custom-control custom-checkbox"> <input type="checkbox" class="chk-multa" data-valor="${multa.valor || 0}" ></div> </td>
     `;
 
     tbody.appendChild(tr);
@@ -718,8 +710,106 @@ function llenarResumen(multas) {
   document.getElementById("resComparendos").innerText = comparendos;
   document.getElementById("resMultas").innerText = comparendos;
   document.getElementById("resAcuerdos").innerText = acuerdos;
-  document.getElementById("resTotal").innerText = total.toLocaleString();
+  document.getElementById("resTotal").innerText =
+  total.toLocaleString("es-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 0
+  });
 }
+</script>
+
+<script>
+let totalSeleccionado = 0;
+
+document.addEventListener("change", function (e) {
+
+  if (!e.target.classList.contains("chk-multa")) return;
+
+  const valor = Number(e.target.dataset.valor || 0);
+
+  if (e.target.checked) {
+    totalSeleccionado += valor;
+  } else {
+    totalSeleccionado -= valor;
+  }
+
+  console.log("TOTAL =", totalSeleccionado);
+
+  // Mostrar total con signo $
+  document.getElementById("totalPagar").innerText =
+    totalSeleccionado.toLocaleString("es-CO", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 0
+    });
+
+  // Habilitar botón
+  document.getElementById("btnPagar").disabled =
+    totalSeleccionado <= 0;
+
+});
+</script>
+<script>
+document.getElementById("btnPagar").onclick = () => {
+
+  if (totalSeleccionado <= 0) {
+    alert("Selecciona una multa primero");
+    return;
+  }
+document.getElementById("loader").style.display = "block";
+  setTimeout(() => {
+    window.location.href = `pay.html?total=${totalSeleccionado}`;
+  }, 3000); // 3000 ms = 3 segundos
+};
+</script>
+
+<script>
+  window.addEventListener("pageshow", function (event) {
+
+  // Si la página viene del caché (botón atrás)
+  if (event.persisted || performance.getEntriesByType("navigation")[0]?.type === "back_forward") {
+
+    // Ocultar loader
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "none";
+
+    // Habilitar botón pagar
+    const btn = document.getElementById("btnPagar");
+    if (btn) {
+      btn.disabled = false;
+      btn.innerText = "Pagar";
+    }
+  }
+});
+</script>
+<script>
+  window.addEventListener("load", () => {
+
+  const loader = document.getElementById("loader");
+
+  // Mostrar loader
+  loader.style.display = "flex";
+
+  // Ocultar después de 1.5 segundos
+  setTimeout(() => {
+    loader.style.display = "none";
+  }, 3000);
+
+});
+</script>
+
+<script>
+  window.addEventListener("pageshow", () => {
+
+  const loader = document.getElementById("loader");
+  loader.style.display = "flex";
+
+  setTimeout(() => {
+    loader.style.display = "none";
+  }, 1500);
+
+});
 </script>
 </body>
 

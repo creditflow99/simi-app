@@ -1,9 +1,9 @@
-
-
-<html lang="es">
-
+<!DOCTYPE html>
+<html>
 <head>
-    <title data-insuit-uuid="7269e6c8-85e4-4c30-b3a4-81df30f15826">SIMIT | SISTEMA INTEGRADO DE MULTAS
+  <title>Consulta SIMIT</title>
+</head>
+ <title data-insuit-uuid="7269e6c8-85e4-4c30-b3a4-81df30f15826">SIMIT | SISTEMA INTEGRADO DE MULTAS
     </title>
 
     <meta name="viewport"
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="boxicons%402.1.4/css/boxicons.min.css" rel="stylesheet">
 
-    <style>
+ <style>
         .disabled {
             display: none !important;
         }
@@ -93,14 +93,15 @@
     transform: rotate(360deg);
   }
 }
+.simit-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
     </style>
-</head>
-
 <body class="accesible-text-minus h-100 i4t-simit-home-CO_FCM i4t-CO_FCM i4t-desktop i4t-simit-Gral i4t-carouselsSTOP i4t-top">
-
-  
-
-    <div class="container-fluid position-fixed-banner">
+ <div class="container-fluid position-fixed-banner">
         <div
             class="row bg-primary justify-content-md-between justify-content-center banner-accesibilidad header__navbar align-items-center">
             <div id="initStep5" role="navigation" aria-label="Información contacto SIMIT"
@@ -371,7 +372,7 @@
                                                         aria-label="Número de identificación o placa del vehículo"
                                                         class="form-control border-0" data-a11y-color="white">
                                                     <div class="input-group-append">
-                                                      <button  onclick="consultar()"
+                                                      <button  onclick="consultar()" type="button"
                                                             aria-label="Consultar estado de cuenta" data-step="3"
                                                             class="btn btn-primary font-weight-bold btn-sm py-1"
                                                             data-orig-font-size="14px" data-orig-line-height="21px"
@@ -1523,54 +1524,41 @@
             </div>
         </div>
     </div>
+
  <div id="loader" class="loader-overlay">
   <div class="simit-spinner"></div>
 </div>
- <script>
-    async function consultar() {
-
-      const placa = document.getElementById("placa").value;
-
-      const res = await fetch(`/consulta?placa=${placa}`);
-      const json = await res.json();
-
-      console.log("DATA:", json);
-
-      if (!json.success) {
-        alert("Error en consulta");
-        return;
-      }
-
-      const multas = json.data.multas || [];
-
-      if (multas.length === 0) {
-        alert("No hay multas");
-        return;
-      }
-
-      const tablaHead = document.querySelector("#tabla thead");
-      const tablaBody = document.querySelector("#tabla tbody");
-
-      tablaHead.innerHTML = "";
-      tablaBody.innerHTML = "";
-
-      const headers = ["numeroComparendo", "departamento", "valorPagar", "estadoComparendo", "fechaComparendo"];
 
 
-      tablaHead.innerHTML =
-        "<tr>" + headers.map(h => `<th>${h}</th>`).join("") + "</tr>";
+<script>
+async function consultar() {
 
-      multas.forEach(m => {
-        tablaBody.innerHTML +=
-          "<tr>" +
-          headers.map(h => `<td>${m[h]}</td>`).join("") +
-          "</tr>";
-      });
-    }
-  </script>
+  const placa = document.getElementById("placa").value.trim();
+  if (!placa) {
+    alert("Ingrese placa");
+    return;
+  }
 
- 
+  document.getElementById("loader").style.display = "block";
+
+  try {
+    const res = await fetch(`/consulta?placa=${placa}`);
+    const data = await res.json();
+
+    localStorage.setItem("resultado", JSON.stringify(data));
+   window.location.href = "detail.html?placa=" + placa;
+
+  } catch (e) {
+    document.getElementById("loader").style.display = "none";
+    alert("Error consultando");
+  }
+}
+
+window.addEventListener("pageshow", () => {
+  localStorage.removeItem("resultado"); // limpia resultado viejo
+  document.getElementById("loader").style.display = "none";
+});
+</script>
 
 </body>
-
 </html>
